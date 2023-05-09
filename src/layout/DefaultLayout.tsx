@@ -7,22 +7,6 @@ import { LocalStorage } from "../user/LocalStorge";
 
 
 export const DefaultLayout = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // local에서 로그인 정보 불러오기
-  const user = localStorage.getItem('user');
-  
-  // user로그인 여부 확인
-  useEffect(() => {
-    user ? setIsLoggedIn(true) : setIsLoggedIn(false);
-  })
-
-  // 로그아웃
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    setIsLoggedIn(false);
-  }
-
   const SubCategoryName = [
     {
       categoryName: "전문가방송",
@@ -60,7 +44,7 @@ export const DefaultLayout = () => {
 
   return (
     <div>
-      < Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      < Header />
       < CategoryList names= {SubCategoryName}/>
       < Outlet />
     </div>

@@ -5,7 +5,7 @@
 // 아이디 비밀번호 찾기 버튼 클릭 시 찾기 페이지로 이동
 // 아이디 저장 체크 박스! 체크되어 있으면 아이디 저장 placeholder에 띄우기
 
-import React, { useState , useEffect, useRef} from 'react';
+import React, { useState , useEffect, useRef, useContext} from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -21,19 +21,25 @@ import { LoginUserService } from '../user/LoginUserService';
 import { useNavigate } from 'react-router-dom';
 import { LocalStorage } from '../user/LocalStorge';
 import { User } from '../user/User';
+import { UserContext } from '../user/UserContext';
 
 const theme = createTheme();
 const loginUserService = new LoginUserService();
 
 export default function SignIn() {
+  const { isLoggedIn, toggleLogin } = useContext(UserContext);
+
+  if (isLoggedIn){
+    
+  }
+
   console.log("ren")
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const idInput = useRef<HTMLInputElement>(null!);
+  const idInput = useRef<HTMLInputElement>(null);
   const pwInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    idInput.current.focus();
   },[]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

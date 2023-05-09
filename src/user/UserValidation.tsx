@@ -21,9 +21,9 @@ export class UserValidation {
 
   validateUserInfo (user : User) :boolean {
     let result = true;
-    if (this.isValueEmpty(user.firstName) || this.isValueEmpty(user.lastName) || this.isValueEmpty(user.userId) || this.isValueEmpty(user.userPw)) {
-      result = false;
-    } 
+    // if (this.isValueEmpty(user.firstName) || this.isValueEmpty(user.lastName) || this.isValueEmpty(user.userId) || this.isValueEmpty(user.userPw)) {
+    //   result = false;
+    // } 
     return result;
   }
 

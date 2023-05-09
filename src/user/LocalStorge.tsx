@@ -25,4 +25,13 @@ export class LocalStorage {
       localStorage.setItem('user', userJson);
     }
   }
+
+  static getUserItem() : User[] {
+    const userJson = localStorage.getItem('user');
+    if (userJson === null) {
+      const user : [] = [];
+      return user;
+    }
+    return JSON.parse(userJson);
+  }
 }

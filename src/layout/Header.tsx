@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -11,17 +11,45 @@ import FaceRoundedIcon from '@mui/icons-material/FaceRounded';
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import { Box, Link } from '@mui/material';
 import { Mypage } from '../user/Mypage';
+import { UserContext } from '../user/UserContext';
+import { User } from '../user/User';
+import { LocalStorage } from '../user/LocalStorge';
 
 type HeaderProps = React.PropsWithChildren<{ isLoggedIn: boolean; onLogout: () => void; }>;
 
-export function Header(props : HeaderProps) {
+// 로컬에 로그인 정보가 있는 지 확인
+const isAuthUser = (id: string, pw: string) => {
+  let result = false;
+  const user : User[] = LocalStorage.getUserItem();
+}
+
+
+export function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+
+  // local에서 로그인 정보 불러오기
+  // const user = localStorage.getItem('user');
+  
+  // // user로그인 여부 확인
+  // useEffect(() => {
+  //   user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  // })
+
+  // // 로그아웃
+  // const handleLogout = () => {
+  //   localStorage.removeItem('user');
+  //   setIsLoggedIn(false);
+  // }
   
 
-  const renderStatus = (bool: Boolean) => {
-    if (bool) {
+  const renderStatus = () => {
+    if (isLoggedIn === true) {
+      console.log("test");
       const userInfo = localStorage.getItem('user');
       const user = JSON.parse(userInfo!);
-      return <h4 style={{color: 'black'}}>{userInfo ? user.lastName : ''}님 반갑습니다.</h4>
+      return <h4 style={{color: 'black'}}>{userInfo ? user.userName : ''}님 반갑습니다.</h4>
     }
   }
 
@@ -38,12 +66,12 @@ export function Header(props : HeaderProps) {
             </Link>
 
             <div style={{ flexGrow: 1 }}></div>
-            {props.isLoggedIn ? (
+            {isLoggedIn ? (
             <>
               <Box sx={{mr: 2}}>
-                {renderStatus(props.isLoggedIn)}
+                {renderStatus()}
               </Box>
-              <Button onClick={props.onLogout} color="inherit" style={{ backgroundColor:' #e118a9'}} sx = {{borderRadius: '20px', mr: '10px', py:'1px' }}>
+              <Button color="inherit" style={{ backgroundColor:' #e118a9'}} sx = {{borderRadius: '20px', mr: '10px', py:'1px' }}>
               로그아웃
               </Button>
             </>

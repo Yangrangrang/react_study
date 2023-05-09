@@ -19,14 +19,18 @@ import { useNavigate } from 'react-router-dom';
 const theme = createTheme();
 
 export default function Join() {
+  console.log("render")
   
   const userService = new UserService();
   const [isRegistered, setIsRegistered] = useState(false);
 
-  const userNameRef = useRef(null);
-  const userIdRef = useRef(null);
-  const userPwRef = useRef(null);
-  const userCheckPwRef = useRef(null);
+  // input 값 저장
+  const userNameRef = useRef<HTMLInputElement>(null);
+  const userIdRef = useRef<HTMLInputElement>(null);
+  const userPwRef = useRef<HTMLInputElement>(null);
+  const userCheckPwRef = useRef<HTMLInputElement>(null);
+
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,14 +41,23 @@ export default function Join() {
     let index = Number(indexStr);
     index++;
 
+    
+
     // const first = data.get('firstName') as string;
     // const last = data.get('lastName') as string;
     // const id = data.get('id') as string;
     // const password = data.get('password') as string;
 
     // const user : User = {id:index, firstName: first, lastName: last , userId : id, userPw : password};
+    const user : User = {
+      id:index, 
+      userName: userNameRef.current?.value || "", 
+      userId: userIdRef.current?.value || "" , 
+      userPw : userPwRef.current?.value || "", 
+      checkPw : userCheckPwRef.current?.value || "",
+    };
     
-    // userService.register(user);
+    userService.register(user);
 
     localStorage.setItem('userIndex', String(index));
 
@@ -83,6 +96,7 @@ export default function Join() {
                   fullWidth
                   id="userName"
                   label="이름"
+                  inputRef = {userNameRef}
                   autoFocus
                 />
               </Grid>
@@ -94,6 +108,7 @@ export default function Join() {
                   label="아이디"
                   name="id"
                   autoComplete="id"
+                  inputRef={userIdRef}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -105,6 +120,7 @@ export default function Join() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  inputRef={userPwRef}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -116,6 +132,7 @@ export default function Join() {
                   type="password"
                   id="check_password"
                   autoComplete="new-password"
+                  inputRef={userCheckPwRef}
                 />
               </Grid>
               <Box sx={{pl: 2, mt:2}}>
